@@ -2,9 +2,6 @@
 
 This is a simple command-line implementation of the classic game Tic-Tac-Toe. The game allows two players to take turns marking spaces on a 3x3 grid, with the objective of getting three in a row horizontally, vertically, or diagonally.
 
-
-Classes
--
 Board
 -
 The Board class represents the game board and keeps track of the state of the game. It has a 2D array of char to represent the board and methods to make a move, check if a move is valid, and check if the board is full.
