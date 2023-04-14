@@ -6,6 +6,7 @@ This is a simple command-line implementation of the classic game Tic-Tac-Toe. Th
 Classes
 -
 Board
+-
 The Board class represents the game board and keeps track of the state of the game. It has a 2D array of char to represent the board and methods to make a move, check if a move is valid, and check if the board is full.
 
 Game
