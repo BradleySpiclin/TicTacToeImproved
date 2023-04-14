@@ -14,6 +14,7 @@ namespace TicTacToe
 
         public Game()
         {
+            // Initialize a new game with a new board and set the game state to not over
             _board = new Board();
             _gameOver = false;
         }
@@ -72,12 +73,12 @@ namespace TicTacToe
                 }
             }
         }
-
+        // Helper method to get the current player based on whose turn it is
         private Player GetPlayer()
         {
             return new Player(_board.CurrentPlayer);
         }
-
+        // Helper method to display the current state of the board to the console
         private void DisplayBoard()
         {
             Console.Clear();
@@ -93,7 +94,7 @@ namespace TicTacToe
             }
             Console.WriteLine();
         }
-
+        // Helper method to check if the current player has won the game
         private bool CheckForWinner(Player player)
         {
             char gamePiece = player.GamePiece;

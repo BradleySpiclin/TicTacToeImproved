@@ -8,9 +8,9 @@ namespace TicTacToe
 {
     public class Player
     {
-        public char GamePiece { get; }
+        public char GamePiece { get; } // Property to get the game piece (X or O) of the player
 
-        public Player(char gamePiece)
+        public Player(char gamePiece) // Constructor to create a new player with a specified game piece
         {
             GamePiece = gamePiece;
         }
