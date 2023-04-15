@@ -11,7 +11,9 @@ namespace TicTacToe
     {
         private Board _board;
         private bool _gameOver;
-
+        private const int MinimumMoveValue = 1;
+        private const int MaximumMoveValue = 4;
+        private Tuple<int, int>? _currentWildcard = null;
         public Game()
         {
             // Initialize a new game with a new board and set the game state to not over
@@ -30,35 +32,44 @@ namespace TicTacToe
                 while (!moveMade)
                 {
                     Console.WriteLine($"Player {currentPlayer.GamePiece}, make your move.");
-                    Console.Write("Enter row and column number (0-2, separated by a comma): ");
-
-                    string[] input = Console.ReadLine().Split(',');
+                    Console.Write("Enter row and column number (1-4, separated by a comma): ");
+                    var input = Console.ReadLine();
+                    if (input == null)
+                    {
+                        Console.WriteLine("Input cannot be null.");
+                        continue;
+                    }
                     int row, col;
-
                     try
                     {
-                        row = int.Parse(input[0]);
-                        col = int.Parse(input[1]);
-
-                        if (row < 0 || row > 2 || col < 0 || col > 2)
+                        string[] values = input.Split(',');
+                        if (values.Length != 2)
                         {
-                            throw new ArgumentException("Invalid input. Row and column numbers must be between 0 and 2.");
+                            throw new ArgumentException("Invalid input. Row and column numbers must be separated by a comma.");
+                        }
+                        row = int.Parse(values[0]);
+                        col = int.Parse(values[1]);
+                        if (row < MinimumMoveValue || row > MaximumMoveValue || col < MinimumMoveValue || col > MaximumMoveValue)
+                        {
+                            throw new ArgumentException($"Invalid input. Row and column numbers must be between {MinimumMoveValue} and {MaximumMoveValue}.");
                         }
                     }
-                    catch (Exception ex)
+                    catch (FormatException ex)
                     {
                         Console.WriteLine($"Error: {ex.Message}");
                         continue;
                     }
-
+                    catch (ArgumentException ex)
+                    {
+                        Console.WriteLine($"Error: {ex.Message}");
+                        continue;
+                    }
                     moveMade = _board.MakeMove(Tuple.Create(row, col));
-
                     if (!moveMade)
                     {
                         Console.WriteLine("Invalid move. Please try again.");
                     }
                 }
-
                 if (CheckForWinner(currentPlayer))
                 {
                     DisplayBoard();
@@ -71,6 +82,34 @@ namespace TicTacToe
                     Console.WriteLine("The game is a tie.");
                     _gameOver = true;
                 }
+                RemoveWildCard(); // Removes the current wildcard character '*'
+                AddWildCard(); // Adds a random wildcard character '*' to an available grid space
+            }
+        }
+        public void AddWildCard()
+        {
+            Random random = new Random();
+            int row = random.Next(0, 4);
+            int col = random.Next(0, 4);
+
+            // Check if the random position is already occupied by a game piece
+            while (_board[row, col] != '-')
+            {
+                row = random.Next(0, 4);
+                col = random.Next(0, 4);
+            }
+            if (_board.GetMoveCount < _board.GetMaxMoveCount - 1) 
+            {
+                _currentWildcard = new Tuple<int, int>(row, col);
+                _board.SetElement(row, col, '*');
+            }
+        }
+        // Helper method to remove the current wildcard '*' from the grid
+        public void RemoveWildCard()
+        {
+            if (_currentWildcard != null) 
+            {
+                _board.ResetGridSpace(_currentWildcard);
             }
         }
         // Helper method to get the current player based on whose turn it is
@@ -82,11 +121,11 @@ namespace TicTacToe
         private void DisplayBoard()
         {
             Console.Clear();
-            Console.WriteLine("   0 1 2");
-            for (int row = 0; row < 3; row++)
+            Console.WriteLine("   1 2 3 4");
+            for (int row = 0; row < 4; row++)
             {
-                Console.Write($"{row}  ");
-                for (int col = 0; col < 3; col++)
+                Console.Write($"{row + 1}  ");
+                for (int col = 0; col < 4; col++)
                 {
                     Console.Write($"{_board[row, col]} ");
                 }
@@ -100,29 +139,29 @@ namespace TicTacToe
             char gamePiece = player.GamePiece;
 
             // Check rows
-            for (int row = 0; row < 3; row++)
+            for (int row = 0; row < 4; row++)
             {
-                if (_board[row, 0] == gamePiece && _board[row, 1] == gamePiece && _board[row, 2] == gamePiece)
+                if (_board[row, 0] == gamePiece && _board[row, 1] == gamePiece && _board[row, 2] == gamePiece && _board[row, 3] == gamePiece)
                 {
                     return true;
                 }
             }
 
             // Check columns
-            for (int col = 0; col < 3; col++)
+            for (int col = 0; col < 4; col++)
             {
-                if (_board[0, col] == gamePiece && _board[1, col] == gamePiece && _board[2, col] == gamePiece)
+                if (_board[0, col] == gamePiece && _board[1, col] == gamePiece && _board[2, col] == gamePiece && _board[3, col] == gamePiece)
                 {
                     return true;
                 }
             }
 
             // Check diagonals
-            if (_board[0, 0] == gamePiece && _board[1, 1] == gamePiece && _board[2, 2] == gamePiece)
+            if (_board[0, 0] == gamePiece && _board[1, 1] == gamePiece && _board[2, 2] == gamePiece && _board[3, 3] == gamePiece)
             {
                 return true;
             }
-            if (_board[0, 2] == gamePiece && _board[1, 1] == gamePiece && _board[2, 0] == gamePiece)
+            if (_board[0, 3] == gamePiece && _board[1, 2] == gamePiece && _board[2, 1] == gamePiece && _board[3, 0] == gamePiece)
             {
                 return true;
             }
