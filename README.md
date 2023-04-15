@@ -4,7 +4,7 @@ This is an improved version of the common Tic-Tac-Toe game. Two players take tur
 
 Board
 -
-The Board class represents the game board and keeps track of the state of the game. It has a 2D array of char to represent the board and methods to make a move, check if a move is valid, and check if the board is full.
+The Board class represents the game board and keeps track of the state of the game. It has a 2D array of char to represent the board and methods to make a move, check if a move is valid, and check if the board is full. Board also contains a Dictionary of Tuple and Boolean which is used to track which grids hav been visited by a player and this provides the ability to insert a wildcard character at an unvisted grid space.
 
 Game
 -
