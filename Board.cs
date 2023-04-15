@@ -15,7 +15,7 @@ namespace TicTacToe
         private char[,] _board; // Represents the Tic-Tac-Toe board as a 2D char array
         private char _currentPlayer; // Represents the current player (either 'X' or 'O')
         private int _moveCount; // Represents the number of moves made so far
-        private readonly Dictionary<Tuple<int, int>, bool> _availablePositions = new();
+        private bool[,] _availablePositions; // Represents the availability of each grid space
 
         // Returns the current player
         public char CurrentPlayer
@@ -37,6 +37,7 @@ namespace TicTacToe
             _board = new char[_rows, _columns];
             _currentPlayer = 'X';
             _moveCount = 0;
+            _availablePositions = new bool[_rows, _columns];
             InitializeBoard();
             InitializeAvailablePositions();
         }
@@ -48,7 +49,7 @@ namespace TicTacToe
             {
                 for (int col = 0; col < _columns; col++)
                 {
-                    _availablePositions[new Tuple<int, int>(row, col)] = true;
+                    _availablePositions[row, col] = true;
                 }
             }
         }
@@ -76,10 +77,10 @@ namespace TicTacToe
             int row = position.Item1 - 1;
             int col = position.Item2 - 1;
 
-            if (_board[row, col] == Empty)
+            if (_availablePositions[row, col])
             {
                 _board[row, col] = _currentPlayer;
-                _availablePositions[new Tuple<int, int>(row, col)] = false;
+                _availablePositions[row, col] = false;
                 _currentPlayer = (_currentPlayer == 'X') ? 'O' : 'X';
                 _moveCount++;
                 return true;
@@ -102,6 +103,7 @@ namespace TicTacToe
             int col = position.Item2;
 
             _board[row, col] = Empty;
+            _availablePositions[row, col] = true;
         }
         // Allows indexing into the board using the (row, col) syntax
         public char this[int row, int col]
