@@ -12,12 +12,11 @@ namespace TicTacToe
         private static readonly int _columns = 4;
         private const int MaxMoveCount = 16;
         private const char Empty = '-';
-        private char[,] _board; // Represents the Tic-Tac-Toe board as a 2D char array
-        private char _currentPlayer; // Represents the current player (either 'X' or 'O')
-        private int _moveCount; // Represents the number of moves made so far
-        private bool[,] _availablePositions; // Represents the availability of each grid space
+        private char[,] _board;
+        private char _currentPlayer;
+        private int _moveCount;
+        private bool[,] _availablePositions;
 
-        // Returns the current player
         public char CurrentPlayer
         {
             get { return _currentPlayer; }

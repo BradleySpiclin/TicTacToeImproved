@@ -14,13 +14,12 @@ namespace TicTacToe
         private const int MinimumMoveValue = 1;
         private const int MaximumMoveValue = 4;
         private Tuple<int, int>? _currentWildcard = null;
-        public Game()
+        public Game() // Initialize a new game with a new board and set the game state to not over
         {
-            // Initialize a new game with a new board and set the game state to not over
             _board = new Board();
             _gameOver = false;
         }
-
+        // Main game loop
         public void Play()
         {
             while (!_gameOver)
@@ -137,7 +136,6 @@ namespace TicTacToe
         private bool CheckForWinner(Player player)
         {
             char gamePiece = player.GamePiece;
-
             // Check rows
             for (int row = 0; row < 4; row++)
             {
@@ -146,7 +144,6 @@ namespace TicTacToe
                     return true;
                 }
             }
-
             // Check columns
             for (int col = 0; col < 4; col++)
             {
@@ -155,7 +152,6 @@ namespace TicTacToe
                     return true;
                 }
             }
-
             // Check diagonals
             if (_board[0, 0] == gamePiece && _board[1, 1] == gamePiece && _board[2, 2] == gamePiece && _board[3, 3] == gamePiece)
             {
@@ -165,7 +161,6 @@ namespace TicTacToe
             {
                 return true;
             }
-
             return false;
         }
     }
