@@ -95,7 +95,7 @@ namespace TicTacToe
         {
             return _moveCount == MaxMoveCount;
         }
-
+        // Resets the grid space to the default character '-'
         public void ResetGridSpace(Tuple<int, int> position)
         {
             int row = position.Item1;
