@@ -1,6 +1,6 @@
-# Tic-Tac-Toe Game
+# Tic-Tac-Toe Improved
 
-This is a simple command-line implementation of the classic game Tic-Tac-Toe. The game allows two players to take turns marking spaces on a 3x3 grid, with the objective of getting three in a row horizontally, vertically, or diagonally.
+This is an improved version of the common Tic-Tac-Toe game. Two players take turns to mark spaces on a 4x4 grid, with the objective of getting four in a row horizontally, vertically, or diagonally. An added twist of a wildcard character '*' can appear anywhere in an unoccupied grid after the first move is made and shifts to a new location after every player move. The wildcard character persists until there is only one available grid space remaining.
 
 Board
 -
@@ -16,4 +16,4 @@ The Player class represents a player in the game and has a char property to repr
 
 Usage
 -
-To play the game, simply run the Program.cs file. The game will be played in the console. Two players will take turns entering row and column numbers to place their game piece on the board. The game ends when a player gets three in a row or the board is full. Players can choose to play again after the game ends.
+To play the game, simply run the Program.cs file. The game will be played in the console. Two players will take turns entering row and column numbers to place their game piece on the board. The game ends when a player gets four in a row or the board is full. Players can choose to play again after the game ends.
