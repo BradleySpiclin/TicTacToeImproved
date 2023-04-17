@@ -78,8 +78,8 @@ namespace TicTacToe
 
             if (_availablePositions[row, col])
             {
-                _board[row, col] = _currentPlayer;
                 _availablePositions[row, col] = false;
+                _board[row, col] = _currentPlayer;
                 _currentPlayer = (_currentPlayer == 'X') ? 'O' : 'X';
                 _moveCount++;
                 return true;
@@ -108,6 +108,11 @@ namespace TicTacToe
         public char this[int row, int col]
         {
             get { return _board[row, col]; }
+        }
+        // Allows indexing into the boolean array using the (row, col) syntax
+        public bool GetAvailablePosition(int row, int col)
+        {
+            return _availablePositions[row, col];
         }
     }
 }

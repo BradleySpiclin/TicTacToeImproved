@@ -92,7 +92,7 @@ namespace TicTacToe
             int col = random.Next(0, 4);
 
             // Check if the random position is already occupied by a game piece
-            while (_board[row, col] != '-')
+            while (!_board.GetAvailablePosition(row, col))
             {
                 row = random.Next(0, 4);
                 col = random.Next(0, 4);
