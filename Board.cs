@@ -8,35 +8,30 @@ namespace TicTacToe
 {
     public class Board
     {
-        private static readonly int _rows = 4;
-        private static readonly int _columns = 4;
+        // Constants
+        private const int Rows = 4;
+        private const int Columns = 4;
         private const int MaxMoveCount = 16;
         private const char Empty = '-';
+
+        // Fields
         private char[,] _board;
         private char _currentPlayer;
         private int _moveCount;
         private bool[,] _availablePositions;
 
-        public char CurrentPlayer
-        {
-            get { return _currentPlayer; }
-        }
-        public int GetMoveCount 
-        {
-            get { return _moveCount; }
-        }
-        public int GetMaxMoveCount 
-        {
-            get { return MaxMoveCount; }
-        }
+        // Props
+        public char CurrentPlayer{ get { return _currentPlayer; }}
+        public int GetMoveCount { get { return _moveCount; }}
+        public int GetMaxMoveCount { get { return MaxMoveCount; }}
 
         // Initializes the board with '-' in every position and sets the first player as 'X'
         public Board()
         {
-            _board = new char[_rows, _columns];
+            _board = new char[Rows, Columns];
             _currentPlayer = 'X';
             _moveCount = 0;
-            _availablePositions = new bool[_rows, _columns];
+            _availablePositions = new bool[Rows, Columns];
             InitializeBoard();
             InitializeAvailablePositions();
         }
@@ -44,9 +39,9 @@ namespace TicTacToe
         // Initializes the availability of each grid space
         private void InitializeAvailablePositions()
         {
-            for (int row = 0; row < _rows; row++)
+            for (int row = 0; row < Rows; row++)
             {
-                for (int col = 0; col < _columns; col++)
+                for (int col = 0; col < Columns; col++)
                 {
                     _availablePositions[row, col] = true;
                 }
@@ -56,14 +51,16 @@ namespace TicTacToe
         // Fills every position of the board with '-'
         private void InitializeBoard()
         {
-            for (int row = 0; row < _rows; row++)
+            for (int row = 0; row < Rows; row++)
             {
-                for (int col = 0; col < _columns; col++)
+                for (int col = 0; col < Columns; col++)
                 {
                     _board[row, col] = Empty;
                 }
             }
         }
+
+        // Sets the board element equal to the passed in char value
         public void SetElement(int row, int col, char value)
         {
             _board[row, col] = value;
@@ -95,6 +92,7 @@ namespace TicTacToe
         {
             return _moveCount == MaxMoveCount;
         }
+
         // Resets the grid space to the default character '-'
         public void ResetGridSpace(Tuple<int, int> position)
         {
@@ -104,11 +102,13 @@ namespace TicTacToe
             _board[row, col] = Empty;
             _availablePositions[row, col] = true;
         }
+
         // Allows indexing into the board using the (row, col) syntax
         public char this[int row, int col]
         {
             get { return _board[row, col]; }
         }
+
         // Allows indexing into the boolean array using the (row, col) syntax
         public bool GetAvailablePosition(int row, int col)
         {

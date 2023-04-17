@@ -9,11 +9,15 @@ namespace TicTacToe
 {
     public class Game
     {
-        private Board _board;
-        private bool _gameOver;
+        // constants
         private const int MinimumMoveValue = 1;
         private const int MaximumMoveValue = 4;
+        private const char Wildcard = '*';
+        // Fields
+        private Board _board;
+        private bool _gameOver;
         private Tuple<int, int>? _currentWildcard = null;
+
         public Game() // Initialize a new game with a new board and set the game state to not over
         {
             _board = new Board();
@@ -100,7 +104,7 @@ namespace TicTacToe
             if (_board.GetMoveCount < _board.GetMaxMoveCount - 1) 
             {
                 _currentWildcard = new Tuple<int, int>(row, col);
-                _board.SetElement(row, col, '*');
+                _board.SetElement(row, col, Wildcard);
             }
         }
         // Helper method to remove the current wildcard '*' from the grid
